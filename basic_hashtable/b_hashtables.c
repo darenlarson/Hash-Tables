@@ -166,13 +166,14 @@ int main(void)
 
   hash_table_insert(ht, "Daren", "Larson\n");
   hash_table_insert(ht, "Joanne", "Larson\n");
-  hash_table_insert(ht, "Greg", "Larson\n");
 
-  printf("%s", hash_table_retrieve(ht, "line"));
+  printf("%s", hash_table_retrieve(ht, "Daren"));
+  printf("%s", hash_table_retrieve(ht, "Joanne"));
+  // printf("%s", hash_table_retrieve(ht, "Greg"));
 
-  hash_table_remove(ht, "line");
+  hash_table_remove(ht, "Joanne");
 
-  if (hash_table_retrieve(ht, "line") == NULL) {
+  if (hash_table_retrieve(ht, "Joanne") == NULL) {
     printf("...gone tomorrow. (success)\n");
   } else {
     fprintf(stderr, "ERROR: STILL HERE\n");
