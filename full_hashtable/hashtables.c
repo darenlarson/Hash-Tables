@@ -275,18 +275,30 @@ void destroy_hash_table(HashTable *ht)
 
   Don't forget to free any malloc'ed memory!
  */
-// HashTable *hash_table_resize(HashTable *ht)
-// {
-//   HashTable *new_ht = malloc(sizeof(HashTable));
-//   new_ht->capacity = ht->capacity * 2;
-//   new_ht->storage = calloc(new_ht->capacity, sizeof(LinkedPair *));
+HashTable *hash_table_resize(HashTable *ht)
+{
+  HashTable *new_ht = create_hash_table(ht->capacity * 2);
 
-//   for (int i = 0; i < ht->capacity; i++) {
-    
-//   }
+  for (int i = 0; i < ht->capacity; i++)
+  {
+    if (ht->storage[i] != NULL)
+    {
+      LinkedPair *current_pair = ht->storage[i];
+      LinkedPair *inserting_pair = NULL;
+      while (current_pair)
+      {
+        inserting_pair = current_pair;
+        current_pair = current_pair->next;
+        hash_table_insert(new_ht, inserting_pair->key, inserting_pair->value);
+        destroy_pair(inserting_pair);
+      }
+    }
+    ht->storage[i] = NULL;
+  }
+  destroy_hash_table(ht);
 
-//   return new_ht;
-// }
+  return new_ht;
+}
 
 
 #ifndef TESTING
